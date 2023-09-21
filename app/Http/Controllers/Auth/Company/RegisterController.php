@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Company\Company;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\Company\CompanyVerify;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 class RegisterController extends Controller
 {
 
@@ -39,16 +42,37 @@ protected function validator(array $data)
     }
     protected function Register(Request $request)
 {
-    $this->validator($request->all())->validate();
-    $company = Company::create([
-        'name' => $request['name'],
-        'email' => $request['email'],
-        'password' => Hash::make($request['password']),
-    ]);
-    return redirect()->route('Company.dashboard')->with('Registered Successfully');
+    $data = $request->all();
+    $createCompany = $this->create($data);
+
+    $token = Str::random(64);
+
+    CompanyVerify::create([
+          'company_id' => $createCompany->id,
+          'token' => $token
+        ]);
+
+    Mail::send('email.emailVerificationEmail', ['token' => $token], function($message) use($request){
+          $message->to($request->email);
+          $message->subject('Email Verification Mail');
+      });
+
+    return redirect()->route('Company.dashboard')->withSuccess('Great! You have Successfully loggedin');
+}
+public function create(array $data)
+{
+  return Company::create([
+    'name' => $data['name'],
+    'email' => $data['email'],
+    'password' => Hash::make($data['password'])
+  ]);
+}
+
+
+
 
 }
 
-}
+
 
 

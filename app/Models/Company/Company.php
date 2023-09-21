@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Authenticatable
 {
+
     use HasFactory;
     protected $guard = "company";
 
@@ -23,7 +24,14 @@ class Company extends Authenticatable
         'remember_token',
     ];
 
-    const ACTIVE ='active';
-    const DEACTIVE ='deactive';
+    public function getStatusAttribute($value)
+    {
+        return ucfirst($value); // Capitalize the first letter
+    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+
 
 }

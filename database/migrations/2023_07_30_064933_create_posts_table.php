@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('experiance');
             $table->enum('type',['remote','onsite']);
             $table->integer('company_id')->references('id')->on('companies');
-
             $table->integer('created_by');
             $table->enum('status',['open','close']);
             $table->string('location');

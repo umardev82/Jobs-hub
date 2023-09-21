@@ -1,6 +1,5 @@
 @extends('admin.includes.master')
 @section('content')
-<h1>{{session('user')}}</h1>
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
    <!-- Content Header (Page header) -->

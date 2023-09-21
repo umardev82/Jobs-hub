@@ -21,18 +21,37 @@ Route::get('/', function () {
 });
 
 
-//Company Login/ Register
+
+
+//Company Login/ Register//Forgot password
 
 Route::get('/company/register', [App\Http\Controllers\Auth\Company\RegisterController::class, 'index'])->name('auth.Company.register.index');
 Route::post('/company/register', [App\Http\Controllers\Auth\Company\RegisterController::class, 'Register'])->name('auth.Company.register.Register');
 
 Route::get('/company/login', [App\Http\Controllers\Auth\Company\LoginController::class, 'index'])->name('auth.Company.login.index');
 Route::post('/company/login', [App\Http\Controllers\Auth\Company\LoginController::class, 'LoginCompany'])->name('auth.Company.login.LoginCompany');
-//Admin Login/ Register
+//Route::get('/logout', [App\Http\Controllers\Auth\Company\LoginController::class, 'logout'])->name('logout');
+//Forgot password
+Route::get('/forget-password', [App\Http\Controllers\Auth\Company\ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('/forget-password', [App\Http\Controllers\Auth\Company\ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\Company\ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('/reset-password', [App\Http\Controllers\Auth\Company\ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+/* Email varification Company*/
+
+Route::get('/account/verify/{token}', [App\Http\Controllers\Auth\Company\LoginController::class,'verifyAccount'])->name('company.verify');
+
+
+
+//Admin Login /Forgot password
 
 Route::get('/admin/login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'index'])->name('auth.Admin.login.index');
 Route::post('/admin/login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'LoginAdmin'])->name('auth.Admin.login.LoginAdmin');
+//Forget Password
 
+Route::get('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('/reset-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 
@@ -56,6 +75,7 @@ Route::middleware('auth:admin')->prefix('/admin')->group(function () {
     Route::put('/post/update/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])->name('admin.post.update');
     Route::post('/post/store', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('admin.post.store');
     Route::delete('/post/delete/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('admin.post.destroy');
+
     //Company
     Route::get('/company', [App\Http\Controllers\Admin\CompanyController::class, 'index'])->name('admin.company.index');
    // Route::get('/company/create', [App\Http\Controllers\Admin\CompanyController::class, 'create'])->name('admin.company.create');
@@ -69,9 +89,10 @@ Route::middleware('auth:admin')->prefix('/admin')->group(function () {
 //End Admin
 
 //Company
-Route::middleware('auth:company')->prefix('/company')->group(function () {
+Route::middleware(['auth:company','is_verify_email'])->prefix('/company')->group(function () {
     //dashboard
     Route::get('/dashboard', [App\Http\Controllers\Company\DashboardController::class, 'index'])->name('Company.dashboard');
+
 
     // Admin profile
     Route::get('/profile', [App\Http\Controllers\Company\ProfileController::class, 'index'])->name('Company.profile.edit');
@@ -93,6 +114,10 @@ Route::middleware('auth:company')->prefix('/company')->group(function () {
     Route::get('/employee/create', [App\Http\Controllers\Company\EmployeeController::class, 'create'])->name('Company.employee.create');
     Route::post('/employee/store', [App\Http\Controllers\Company\EmployeeController::class, 'store'])->name('Company.employee.store');
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Company\CompanyVerify;
+use Illuminate\Support\Facades\Session;
 class LoginController extends Controller
 {
     public function index()
@@ -35,4 +37,33 @@ public function LoginCompany(Request $request)
 
     }
 
+    public function verifyAccount($token)
+{
+    $verifyCompany = CompanyVerify::where('token', $token)->first();
+
+    $message = 'Sorry, your email cannot be identified.';
+
+    if (!is_null($verifyCompany)) {
+        $company = $verifyCompany->company; // Assuming there's a 'company' relationship in the CompanyVerify model
+        $company = $verifyCompany->company; // Assuming there's a 'user' relationship in the CompanyVerify model
+
+        if (!$company->is_email_verified) {
+            $company->is_email_verified = 1;
+            $company->save();
+            $message = "Your email is verified. You can now log in.";
+        } else {
+            $message = "Your email is already verified. You can now log in.";
+        }
+    }
+
+    return redirect()->route('auth.Company.login.index')->with('message', $message);
 }
+
+
+
+
+
+
+}
+
+

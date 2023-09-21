@@ -9,6 +9,4 @@ class Post extends Model
 {
     use HasFactory;
 
-    const ACTIVE ='active';
-    const DEACTIVE ='deactive';
 }

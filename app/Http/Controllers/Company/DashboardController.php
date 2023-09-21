@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Company.includes.dashboard');
+        if(Auth::check()){
+            return view('Company.includes.dashboard');
+        }
+
+        return redirect()->route('auth.Company.login.index')->withSuccess('Opps! You do not have access');
+       // return view('Company.includes.dashboard');
     }
 
     /**

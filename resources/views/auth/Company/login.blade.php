@@ -22,8 +22,13 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Company</b>Login</a>
+                <a href=" " class="h2"> <b> Company Login</b> </a>
             </div>
+            @if (Session::has('message'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('message') }}
+            </div>
+        @endif
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
@@ -60,13 +65,15 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Remember Me') }}
                                 </label>
                             </div>
                         </div>
@@ -79,10 +86,10 @@
                 </form>
 
                 <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                    <a href="{{route('forget.password.get')}}">I forgot my password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="{{route('auth.Company.register.index')}}" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.card-body -->
