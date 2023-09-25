@@ -14,8 +14,17 @@ class PostController extends Controller
      */
     public function index()
     {
+
+        $breadcrumbs = [
+            'title' => "Posts",
+            'links' => [
+                ['name' => "Home", 'url' => route('admin.dashboard')],
+                ['name' => "Posts", 'url' => route('admin.post.index')],
+            ],
+        ];
+
         $posts = Post::all();
-        return view('admin.post.index',compact('posts'));
+        return view('admin.post.index',compact('posts', 'breadcrumbs'));
     }
 
     /**
@@ -23,7 +32,15 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $breadcrumbs = [
+            'title' => "Posts",
+            'links' => [
+                ['name' => "Home", 'url' => route('admin.dashboard')],
+                ['name' => "Create Posts", 'url' => route('admin.post.create')],
+            ],
+        ];
+
+        return view('admin.post.create', compact('breadcrumbs'));
     }
 
     /**

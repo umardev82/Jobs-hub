@@ -22,6 +22,42 @@ Route::get('/', function () {
 
 
 
+/* Admin Route */
+Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
+    Route::get('login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'index'])->name('login');
+    Route::post('login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'login'])->name('login.auth');
+
+    Route::middleware('auth:admin')->group(function () {
+        //Dashboard
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+
+        // Admin profile
+        Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile');
+        Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/password/update', [App\Http\Controllers\Admin\ProfileController::class, 'changePassword'])->name('profile.password.update');
+
+        Route::get('/posts', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.index');
+        Route::get('/post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.create');
+        Route::get('/post/edit/{id}', [App\Http\Controllers\Admin\PostController::class, 'edit'])->name('post.edit');
+        Route::put('/post/update/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])->name('post.update');
+        Route::post('/post/store', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store');
+        Route::delete('/post/delete/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('post.destroy');
+
+        //Company
+        Route::get('/company', [App\Http\Controllers\Admin\CompanyController::class, 'index'])->name('company.index');
+        // Route::get('/company/create', [App\Http\Controllers\Admin\CompanyController::class, 'create'])->name('company.create');
+        //Route::get('/company/edit/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'edit'])->name('company.edit');
+        //Route::put('/company/update/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'update'])->name('company.update');
+        //Route::post('/company/store', [App\Http\Controllers\Admin\CompanyController::class, 'store'])->name('company.store');
+        Route::delete('/company/delete/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'destroy'])->name('company.destroy');
+    });
+
+
+
+});
+
+
 
 //Company Login/ Register//Forgot password
 
@@ -42,10 +78,6 @@ Route::get('/account/verify/{token}', [App\Http\Controllers\Auth\Company\LoginCo
 
 
 
-//Admin Login /Forgot password
-
-Route::get('/admin/login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'index'])->name('auth.Admin.login.index');
-Route::post('/admin/login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'LoginAdmin'])->name('auth.Admin.login.LoginAdmin');
 //Forget Password
 
 Route::get('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -54,36 +86,6 @@ Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\Admin\ForgetPas
 Route::post('/reset-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
-
-
-//Admin  Panel  Routes
-Route::middleware('auth:admin')->prefix('/admin')->group(function () {
-    //Dashboard
-    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
-
-
-    // Admin profile
-    Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin.profile.edit');
-    Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('admin.profile.update');
-    //change password
-    Route::get('/change-password', [App\Http\Controllers\Admin\ProfileController::class, 'ChangePasswordForm'])->name('admin.profile.ChangePasswordForm');
-    Route::post('/change-password', [App\Http\Controllers\Admin\ProfileController::class, 'changePassword'])->name('admin.profile.changePassword');
-    //post
-    Route::get('/posts', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('admin.post.index');
-    Route::get('/post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('admin.post.create');
-    Route::get('/post/edit/{id}', [App\Http\Controllers\Admin\PostController::class, 'edit'])->name('admin.post.edit');
-    Route::put('/post/update/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])->name('admin.post.update');
-    Route::post('/post/store', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('admin.post.store');
-    Route::delete('/post/delete/{id}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('admin.post.destroy');
-
-    //Company
-    Route::get('/company', [App\Http\Controllers\Admin\CompanyController::class, 'index'])->name('admin.company.index');
-   // Route::get('/company/create', [App\Http\Controllers\Admin\CompanyController::class, 'create'])->name('admin.company.create');
-    //Route::get('/company/edit/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'edit'])->name('admin.company.edit');
-    //Route::put('/company/update/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'update'])->name('admin.company.update');
-    //Route::post('/company/store', [App\Http\Controllers\Admin\CompanyController::class, 'store'])->name('admin.company.store');
-    Route::delete('/company/delete/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'destroy'])->name('admin.company.destroy');
-});
 
 
 //End Admin

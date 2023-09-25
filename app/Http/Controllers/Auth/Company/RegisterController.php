@@ -52,6 +52,7 @@ protected function validator(array $data)
           'token' => $token
         ]);
 
+    if (config('app.email_config'))
     Mail::send('email.emailVerificationEmail', ['token' => $token], function($message) use($request){
           $message->to($request->email);
           $message->subject('Email Verification Mail');

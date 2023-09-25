@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
 use App\Models\Admin\Admin;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
         $imageName = time() . '.' . $request->logo->extension();
         $request->logo->move(public_path('admin/images'), $imageName);
@@ -31,7 +33,7 @@ class ProfileController extends Controller
         $admin->email = $request->email;
         $admin->logo = 'admin/images/' . $imageName;
         $admin->Save();
-        return redirect()->route('admin.profile.edit')->with('success', 'Profile Update successfully.');
+        return redirect()->route('admin.profile')->with('success', 'Profile Update successfully.');
     }
 
     /**
@@ -46,25 +48,19 @@ class ProfileController extends Controller
         return view('admin.profile.change_password');
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(UpdatePasswordRequest $request)
     {
-        // Validate the request data, including the new password
-        $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|min:8|confirmed',
-        ]);
-
         $input = $request->all();
         $admin = Admin::where('id', Auth::id())->first();
 
-        if (!Hash::check($input['current_password'], $admin->password)) {
+        if (!Hash::check($input['old_password'], $admin->password)) {
             return redirect()->back()->with('error', 'Current password is incorrect.');
         } else {
             // Update the user's password
             $admin->update([
-                'password' => Hash::make($request->new_password),
+                'password' => Hash::make($request->password),
             ]);
-            return redirect()->route('admin.profile.ChangePasswordForm')->with('success', 'Password changed successfully.');
+            return redirect()->route('admin.profile')->with('success', 'Password changed successfully.');
         }
     }
 }
