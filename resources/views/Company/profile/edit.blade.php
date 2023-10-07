@@ -1,19 +1,19 @@
 @extends('Company.includes.master')
 @section('content')
     @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="row">
-                <div class="col-md-3">
+        <div class="col-md-3">
 
             <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                        <div class="text-center">
-                            <img id="output" class="profile-user-img img-fluid img-circle" src="{{ asset($company->logo) }}"
+            <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                        <img id="output" class="profile-user-img img-fluid img-circle" src="{{ asset($company->logo) }}"
                             alt="User profile picture">
                     </div>
 
@@ -49,59 +49,59 @@
                         <li class="nav-item"><a class="nav-link" href="#password" data-toggle="tab">Password</a></li>
                     </ul>
                 </div><!-- /.card-header -->
-            <div class="card-body">
-<div class="tab-content">
+                <div class="card-body">
+                    <div class="tab-content">
                         <div class="active tab-pane" id="profile">
 
-                <form class="form-horizontal" action="{{ route('Company.profile.update') }}" method="POST"
+                            <form class="form-horizontal" action="{{ route('Company.profile.update') }}" method="POST"
                                 enctype="multipart/form-data">
-                        @csrf
-                        @method('put')
-                                                <div class="form-group row">
-                            <label for="formFile" class="col-sm-2 col-form-label">Profile </label>
-                            <div class="col-sm-10">
-                                <input onchange="updateImg(event)" name="logo" class="form-control"
+                                @csrf
+                                @method('put')
+                                <div class="form-group row">
+                                    <label for="formFile" class="col-sm-2 col-form-label">Profile </label>
+                                    <div class="col-sm-10">
+                                        <input onchange="updateImg(event)" name="logo" class="form-control"
                                             type="file" id="formFile">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-10">
-                                <input name="name" type="text" class="form-control"
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input name="name" type="text" class="form-control"
                                             value="{{ $company->name }}">
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input name="email" type="email" class="form-control"
+                                <div class="form-group row">
+                                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input name="email" type="email" class="form-control"
                                             value="{{ $company->email }}">
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group row">
-                            <label for="inputAbout" class="col-sm-2 col-form-label">About</label>
-                            <div class="col-sm-10">
-                                <input name="about" type="text" class="form-control"
+                                <div class="form-group row">
+                                    <label for="inputAbout" class="col-sm-2 col-form-label">About</label>
+                                    <div class="col-sm-10">
+                                        <input name="about" type="text" class="form-control"
                                             value="{{ $company->about }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputDetails" class="col-sm-2 col-form-label">Details</label>
-                            <div class="col-sm-10">
-                               <textarea name="details" class="form-control">{{ $company->details }}</textarea>
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputDetails" class="col-sm-2 col-form-label">Details</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="details" class="form-control">{{ $company->details }}</textarea>
+                                    </div>
+                                </div>
 
 
 
-                        <div class="form-group row">
-                            <div class="offset-sm-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Update</button>
-                            </div>
-                        </div>
-                    </form>
+                                <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                    </div>
+                                </div>
+                            </form>
 
                         </div>
                         <div class="tab-pane" id="password">
@@ -145,7 +145,7 @@
                                                 class="error invalid-feedback">{{ $errors->first('password_confirmation') }}</span>
                                         @endif
                                     </div>
-                </div>
+                                </div>
 
 
 
@@ -161,11 +161,11 @@
                     <!-- /.tab-content -->
                 </div><!-- /.card-body -->
             </div>
-<!-- /.card -->
+            <!-- /.card -->
         </div>
-<!-- /.col -->
+        <!-- /.col -->
     </div>
-<!-- /.row -->
+    <!-- /.row -->
 @endsection
 
 <script !src="">

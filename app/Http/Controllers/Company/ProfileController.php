@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\Company\Company;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\User;
@@ -42,7 +43,7 @@ class ProfileController extends Controller
         $company->details = $request->details;
         $company->logo = 'company/images/' . $imageName;
         $company->Save();
-        return redirect()->route('Company.profile.edit')->with('success', 'Profile Update successfully.');
+        return redirect()->route('Company.profile')->with('success', 'Profile Update successfully.');
     }
 
     /**
@@ -53,25 +54,21 @@ class ProfileController extends Controller
         return view('Company.profile.change_password');
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(UpdatePasswordRequest  $request)
     {
-        // Validate the request data, including the new password
-        $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|min:8|confirmed',
-        ]);
+
 
         $input = $request->all();
         $company = Auth::guard('company')->user();
 
-        if (!Hash::check($input['current_password'], $company->password)) {
+        if (!Hash::check($input['old_password'], $company->password)) {
             return redirect()->back()->with('error', 'Current password is incorrect.');
         } else {
             // Update the user's password
             $company->update([
-                'password' => Hash::make($request->new_password),
+                'password' => Hash::make($request->password),
             ]);
-            return redirect()->route('Company.profile.ChangePasswordForm')->with('success', 'Password changed successfully.');
+            return redirect()->route('Company.profile')->with('success', 'Password Update successfully.');
         }
     }
 

@@ -14,8 +14,15 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $breadcrumbs = [
+            'title' => " Company Listing",
+            'links' => [
+                ['name' => "Home", 'url' => route('admin.dashboard')],
+                ['name' => " Company Listing", 'url' => route('admin.company.index')],
+            ],
+        ];
        $company= Company::all();
-        return view('admin.company.index',compact('company'));
+        return view('admin.company.index',compact('company','breadcrumbs'));
     }
 
     /**

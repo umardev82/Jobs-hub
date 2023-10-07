@@ -12,7 +12,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $breadcrumbs = [
+            'title' => "Admin Dashboard",
+            'links' => [
+                ['name' => "Home", 'url' => route('admin.dashboard')],
+                ['name' => " Dashboard", 'url' => route('admin.dashboard')],
+            ],
+        ];
+        return view('admin.dashboard.index',compact('breadcrumbs'));
     }
 
     /**

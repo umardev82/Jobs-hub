@@ -60,7 +60,7 @@ class ProfileController extends Controller
             $admin->update([
                 'password' => Hash::make($request->password),
             ]);
-            return redirect()->route('admin.profile')->with('success', 'Password changed successfully.');
+            return redirect()->route('admin.profile')->with('success', 'Password Update successfully.');
         }
     }
 }

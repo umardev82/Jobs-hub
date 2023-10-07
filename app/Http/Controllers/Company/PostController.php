@@ -20,8 +20,16 @@ class PostController extends Controller
      */
     public function index()
     {
+
+           $breadcrumbs = [
+            'title' => "Posts",
+            'links' => [
+                ['name' => "Home", 'url' => route('Company.dashboard')],
+                ['name' => "Posts", 'url' => route('Company.post.index')],
+            ],
+        ];
         $posts = Post::all();
-        return view('Company.post.index', compact('posts'));
+        return view('Company.post.index', compact('posts','breadcrumbs'));
     }
 
     /**
@@ -29,7 +37,14 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('Company.post.create');
+        $breadcrumbs = [
+            'title' => "Posts",
+            'links' => [
+                ['name' => "Home", 'url' => route('Company.dashboard')],
+                ['name' => "Create Posts", 'url' => route('Company.post.create')],
+            ],
+        ];
+        return view('Company.post.create',compact('breadcrumbs'));
     }
 
     /**

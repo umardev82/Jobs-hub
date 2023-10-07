@@ -13,8 +13,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $breadcrumbs = [
+            'title' => " Dashboard",
+            'links' => [
+                ['name' => "Home", 'url' => route('Company.dashboard')],
+                ['name' => " Dashboard", 'url' => route('Company.dashboard')],
+            ],
+        ];
+
         if(Auth::check()){
-            return view('Company.includes.dashboard');
+            return view('Company.dashboard.index',compact('breadcrumbs'));
         }
 
         return redirect()->route('auth.Company.login.index')->withSuccess('Opps! You do not have access');

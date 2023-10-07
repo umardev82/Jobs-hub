@@ -1,4 +1,4 @@
-@extends('admin.includes.master')
+@extends('Company.includes.master')
 @section('content')
     <!-- Small boxes (Stat box) -->
     <div class="row">
