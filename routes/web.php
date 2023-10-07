@@ -27,6 +27,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
     Route::get('login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'index'])->name('login');
     Route::post('login', [App\Http\Controllers\Auth\Admin\LoginController::class, 'login'])->name('login.auth');
 
+
+
     Route::middleware('auth:admin')->group(function () {
         //Dashboard
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
@@ -56,6 +58,13 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
 
 
 });
+// Admin Forget Password
+
+Route::get('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('/reset-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
 
 
 
@@ -78,12 +87,6 @@ Route::get('/account/verify/{token}', [App\Http\Controllers\Auth\Company\LoginCo
 
 
 
-//Forget Password
-
-Route::get('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-Route::post('/forget-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
-Route::post('/reset-password', [App\Http\Controllers\Auth\Admin\ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 
@@ -97,11 +100,12 @@ Route::middleware(['auth:company','is_verify_email'])->prefix('/company')->group
 
 
     // Admin profile
-    Route::get('/profile', [App\Http\Controllers\Company\ProfileController::class, 'index'])->name('Company.profile.edit');
+    Route::get('/profile', [App\Http\Controllers\Company\ProfileController::class, 'index'])->name('Company.profile');
     Route::put('/profile/update', [App\Http\Controllers\Company\ProfileController::class, 'update'])->name('Company.profile.update');
     //change password
-    Route::get('/change-password', [App\Http\Controllers\Company\ProfileController::class, 'ChangePasswordForm'])->name('Company.profile.ChangePasswordForm');
-    Route::post('/change-password', [App\Http\Controllers\Company\ProfileController::class, 'changePassword'])->name('Company.profile.changePassword');
+    //Route::get('/change-password', [App\Http\Controllers\Company\ProfileController::class, 'ChangePasswordForm'])->name('Company.profile.ChangePasswordForm');
+    Route::put('/profile/password/update', [App\Http\Controllers\Company\ProfileController::class, 'changePassword'])->name('Company.profile.password.update');
+
     //post
     //post
     Route::get('/posts', [App\Http\Controllers\Company\PostController::class, 'index'])->name('Company.post.index');
