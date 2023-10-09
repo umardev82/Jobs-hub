@@ -113,6 +113,7 @@ Route::middleware(['auth:company','is_verify_email'])->prefix('/company')->group
     Route::get('/post/edit/{id}', [App\Http\Controllers\Company\PostController::class, 'edit'])->name('Company.post.edit');
     Route::put('/post/update/{id}', [App\Http\Controllers\Company\PostController::class, 'update'])->name('Company.post.update');
     Route::post('/post/store', [App\Http\Controllers\Company\PostController::class, 'store'])->name('Company.post.store');
+    Route::get('/post/show', [App\Http\Controllers\Company\PostController::class, 'show'])->name('Company.post.show');
     Route::delete('/post/delete/{id}', [App\Http\Controllers\Company\PostController::class, 'destroy'])->name('Company.post.destroy');
 
     //employees

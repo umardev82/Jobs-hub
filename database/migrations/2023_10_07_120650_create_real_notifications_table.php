@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('real_notifications', function (Blueprint $table) {
             $table->id();
             $table->text('notification');
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
-
-            $table->foreign('admin_id')->references('id')->on('admins');
-            $table->foreign('company_id')->references('id')->on('companies');
-
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('real_notifications');
     }
 };

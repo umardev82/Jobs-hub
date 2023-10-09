@@ -48,7 +48,7 @@
 
                                     <td>
                                         <div class="row">
-                                            <a class="btn btn-default mr-1" href="">
+                                            <a class="btn btn-default mr-1" href="{{route('Company.post.show', ['id' => $item->id])}}">
                                                 <i class="fas fa-eye "></i>
                                             </a>
                                             <a class="btn btn-default mr-1"

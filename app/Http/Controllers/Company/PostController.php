@@ -76,9 +76,17 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $id)
     {
-        //
+        $breadcrumbs = [
+            'title' => "JObs Details",
+            'links' => [
+                ['name' => "Home", 'url' => route('Company.dashboard')],
+                ['name' => "JOb Details", 'url' => route('Company.post.show')],
+            ],
+        ];
+        $post = Post::find($id);
+        return view('Company.post.detail',compact('post','breadcrumbs'));
     }
 
     /**
