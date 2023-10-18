@@ -55,9 +55,17 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $id)
     {
-        //
+        $breadcrumbs = [
+            'title' => "Company Details",
+            'links' => [
+                ['name' => "Home", 'url' => route('admin.dashboard')],
+                ['name' => "Company Details", 'url' => route('admin.company.show')],
+            ],
+        ];
+        $company = Company::find($id);
+        return view('admin.company.detail',compact('company','breadcrumbs'));
     }
 
     /**

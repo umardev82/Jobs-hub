@@ -34,6 +34,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
 
+
         // Admin profile
         Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile');
         Route::put('/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
@@ -41,6 +42,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
 
         Route::get('/posts', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('post.index');
         Route::get('/post/create', [App\Http\Controllers\Admin\PostController::class, 'create'])->name('post.create');
+        Route::get('/post/show', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('post.show');
         Route::get('/post/edit/{id}', [App\Http\Controllers\Admin\PostController::class, 'edit'])->name('post.edit');
         Route::put('/post/update/{id}', [App\Http\Controllers\Admin\PostController::class, 'update'])->name('post.update');
         Route::post('/post/store', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('post.store');
@@ -48,6 +50,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
 
         //Company
         Route::get('/company', [App\Http\Controllers\Admin\CompanyController::class, 'index'])->name('company.index');
+        Route::get('/company/show', [App\Http\Controllers\Admin\CompanyController::class, 'show'])->name('company.show');
         // Route::get('/company/create', [App\Http\Controllers\Admin\CompanyController::class, 'create'])->name('company.create');
         //Route::get('/company/edit/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'edit'])->name('company.edit');
         //Route::put('/company/update/{id}', [App\Http\Controllers\Admin\CompanyController::class, 'update'])->name('company.update');

@@ -1,7 +1,7 @@
 @extends('Company.includes.master')
 @section('content')
-<div class="card card-primary">
-    <div class="row">
+    <div class="card card-text">
+        <div class="row">
             <div class="col-md-8">
                 <div class="card-body">
                     <h1 class="text-center">Description</h1>
@@ -60,5 +60,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

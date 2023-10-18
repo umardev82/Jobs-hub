@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company\Company;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -19,7 +20,9 @@ class DashboardController extends Controller
                 ['name' => " Dashboard", 'url' => route('admin.dashboard')],
             ],
         ];
-        return view('admin.dashboard.index',compact('breadcrumbs'));
+         $totalCompanies = Company::count();
+
+        return view('admin.dashboard.index',compact('breadcrumbs'),['totalCompanies' => $totalCompanies]);
     }
 
     /**

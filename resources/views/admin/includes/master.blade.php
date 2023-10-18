@@ -29,6 +29,8 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('company/assets/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{asset('company/assets/adminlogin.css')}}">
+    <link rel="stylesheet" href="{{asset('company/assets/maincss1.css')}}">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -99,6 +101,10 @@
 {{--   // <script src="{{ asset('admin/assets/dist/js/demo.js') }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('company/assets/dist/js/pages/dashboard.js') }}"></script>
+
+
+
+
 </body>
 
 </html>

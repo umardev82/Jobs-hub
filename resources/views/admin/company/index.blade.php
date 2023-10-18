@@ -39,13 +39,13 @@
                                     <td>{{ $item->status }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->about }}</td>
-                                    <td>{{ $item->details }}</td>
+                                    <td>{{Str::limit($item->about, 20) }}</td>
+                                    <td>{{str::limit( $item->details,30 )}}</td>
 
 
                                     <td>
                                         <div class="row">
-                                            <a class="btn btn-default mr-1" href="">
+                                            <a class="btn btn-default mr-1" href="{{route('admin.company.show',['id'=>$item->id])}}">
                                                 <i class="fas fa-eye "></i>
                                             </a>
 
