@@ -17,8 +17,6 @@ class DatabaseSeeder extends Seeder
     {
 
 
-
-
         Admin::create([
             'name' => 'Admin',
             'email' => 'umardev82@gmail.com',
